@@ -1,4 +1,6 @@
-import { SET_STACK } from '../actions';
+import { combineReducers } from 'redux';
+
+import { SET_STACK, LOAD_STACKS, ADD_STACK } from '../actions';
 
 const stack = (state = {}, action) => {
 
@@ -11,3 +13,19 @@ const stack = (state = {}, action) => {
             return state;
     }
 }
+
+const stacks = (state = [], action) => {
+
+    let { stacks, stack } = action;
+
+    switch(action.type) {
+        case LOAD_STACKS:
+            return stacks;
+        case ADD_STACK:
+            return [...state, {...stack, id: state.length}]
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({stack, stacks});
